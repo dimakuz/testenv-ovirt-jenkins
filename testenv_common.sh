@@ -30,7 +30,10 @@ testenv_run () {
 	fi
 
 	# Create $PREFIX for current run
-	testenvcli init $PREFIX
+	testenvcli init \
+	    $PREFIX	\
+	    $VIRT_CONFIG \
+	    --templates-dir=$WORKSPACE/templates
 	echo '[INIT_OK] Initialized successfully, need cleanup later'
 
 	# Build RPMs
@@ -44,8 +47,7 @@ testenv_run () {
 	    --vdsm-dist=$VDSM_DIST
 
 	# Start VMs
-	testenvcli start $VIRT_CONFIG \
-	    --templates-dir=$WORKSPACE/templates
+	testenvcli start
 
 	# Install RPMs
 	testenvcli ovirt deploy $DEPLOY_SCRIPTS \
