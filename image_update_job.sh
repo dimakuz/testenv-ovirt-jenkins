@@ -17,9 +17,6 @@ chmod 0666 $IMAGES
 
 cd $WORKSPACE/testenv
 
-export PYTHONPATH=$PWD/lib:%PYTHONPATH
-export PATH=$PWD/libexec:$PATH
-
 /usr/share/testenv/update_images.py \
 	$WORKSPACE/update-deployment \
 	/usr/share/testenv/setup_scripts/update_if_needed.sh \
@@ -33,4 +30,4 @@ fi
 
 cd $IMAGES_REPO
 git commit -avs -m "Updated $(date -I)" || true
-git push origin/master
+git push origin master
