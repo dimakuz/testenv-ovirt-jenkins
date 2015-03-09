@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash -x
 source $WORKSPACE/testenv-ovirt-jenkins/testenv_common.sh
 
 ENGINE_DIST=el6
