@@ -55,6 +55,6 @@ testenv_run () {
 
 	# Start testing
 	testenvcli ovirt runtest $OVIRT_CONTRIB/test_scenarios/bootstrap.py
-	testenvcli ovirt snapshot
+	testenvcli ovirt snapshot ovirt-clean
 	testenvcli ovirt runtest $OVIRT_CONTRIB/test_scenarios/basic_sanity.py
 }
