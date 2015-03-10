@@ -1,5 +1,4 @@
 export IMAGES_REPO=$WORKSPACE/testenv-images-repo
-export TESTENV=$WORKSPACE/testenv
 
 cd $IMAGES_REPO
 git reset --hard

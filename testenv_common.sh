@@ -53,6 +53,9 @@ testenv_run () {
 	testenvcli ovirt deploy $DEPLOY_SCRIPTS \
 	    $OVIRT_CONTRIB/setup_scripts
 
+	testenvcli ovirt engine-setup \
+	    --config=$ANSWER_FILE
+
 	# Start testing
 	testenvcli ovirt runtest $OVIRT_CONTRIB/test_scenarios/bootstrap.py
 	testenvcli ovirt snapshot --no-restore ovirt-clean
