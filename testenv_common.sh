@@ -1,6 +1,6 @@
 PREFIX=$WORKSPACE/jenkins-deployment-$BUILD_NUMBER
 OVIRT_CONTRIB=/usr/share/ovirttestenv/
-TEMPLATES_CLONE_URL="ssh://templates@66.187.230.22/~templates/templates.git"
+TEMPLATE_REPO=$WORKSPACE/testenv-template-repositories/ci-repo.json
 
 testenv_run () {
 	set -e
@@ -21,19 +21,12 @@ testenv_run () {
 	    ENGINE_PATH=$WORKSPACE/ovirt-engine
 	fi
 
-	# Clone templates
-	if [ ! -d $WORKSPACE/templates ]
-	then
-	    /usr/share/testenv/sync_templates.py --create $TEMPLATES_CLONE_URL $WORKSPACE/templates
-	else
-	    /usr/share/testenv/sync_templates.py $WORKSPACE/templates
-	fi
-
 	# Create $PREFIX for current run
 	testenvcli init \
 	    $PREFIX	\
 	    $VIRT_CONFIG \
-	    --templates-dir=$WORKSPACE/templates
+	    --template-repo=$TEMPLATE_REPO \
+	    --template-store=$WORKSPACE/template-store
 	echo '[INIT_OK] Initialized successfully, need cleanup later'
 
 	# Build RPMs
@@ -42,15 +35,14 @@ testenv_run () {
 	    --rpm-repo=$REPOSYNC_DIR \
 	    --reposync-yum-config=$REPOSYNC_YUM_CONFIG \
 	    --engine-dir=$ENGINE_PATH \
-	    --engine-dist=$ENGINE_DIST \
 	    --vdsm-dir=$VDSM_PATH \
-	    --vdsm-dist=$VDSM_DIST
 
 	# Start VMs
 	testenvcli start
 
 	# Install RPMs
-	testenvcli ovirt deploy $DEPLOY_SCRIPTS \
+	testenvcli ovirt deploy \
+	    $DEPLOY_SCRIPTS \
 	    $OVIRT_CONTRIB/setup_scripts
 
 	testenvcli ovirt engine-setup \
