@@ -24,14 +24,14 @@ testenv_run () {
 	# Create $PREFIX for current run
 	testenvcli init \
 	    $PREFIX	\
-	    $VIRT_CONFIG \
+	    $VIRT_CONFIG
 	echo '[INIT_OK] Initialized successfully, need cleanup later'
 
 	# Build RPMs
 	cd $PREFIX
 	testenvcli ovirt reposetup \
 	    --engine-dir=$ENGINE_PATH \
-	    --vdsm-dir=$VDSM_PATH \
+	    --vdsm-dir=$VDSM_PATH
 
 	# Start VMs
 	testenvcli start
