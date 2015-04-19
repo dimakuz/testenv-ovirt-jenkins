@@ -25,15 +25,11 @@ testenv_run () {
 	testenvcli init \
 	    $PREFIX	\
 	    $VIRT_CONFIG \
-	    --template-repo=$TEMPLATE_REPO \
-	    --template-store=$WORKSPACE/template-store
 	echo '[INIT_OK] Initialized successfully, need cleanup later'
 
 	# Build RPMs
 	cd $PREFIX
 	testenvcli ovirt reposetup \
-	    --rpm-repo=$REPOSYNC_DIR \
-	    --reposync-yum-config=$REPOSYNC_YUM_CONFIG \
 	    --engine-dir=$ENGINE_PATH \
 	    --vdsm-dir=$VDSM_PATH \
 
