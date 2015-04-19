@@ -24,7 +24,8 @@ testenv_run () {
 	# Create $PREFIX for current run
 	testenvcli init \
 	    $PREFIX	\
-	    $VIRT_CONFIG
+	    $VIRT_CONFIG \
+	    --template-repo=$TEMPLATE_REPO
 	echo '[INIT_OK] Initialized successfully, need cleanup later'
 
 	# Build RPMs
