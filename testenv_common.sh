@@ -38,9 +38,7 @@ testenv_run () {
 	testenvcli start
 
 	# Install RPMs
-	testenvcli ovirt deploy \
-	    $DEPLOY_SCRIPTS \
-	    $OVIRT_CONTRIB/setup_scripts
+	testenvcli ovirt deploy
 
 	testenvcli ovirt engine-setup \
 	    --config=$ANSWER_FILE
