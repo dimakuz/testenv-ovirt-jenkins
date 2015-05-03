@@ -1,6 +1,6 @@
 PREFIX=$WORKSPACE/jenkins-deployment-$BUILD_NUMBER
 OVIRT_CONTRIB=/usr/share/ovirttestenv/
-TEMPLATE_REPO=$WORKSPACE/testenv-template-repositories/ci-repo.json
+REPOSYNC_YUM_CONFIG=$OVIRT_CONTRIB/config/repos/ovirt-master-snapshot-external.repo
 
 testenv_run () {
 	set -e
@@ -24,13 +24,13 @@ testenv_run () {
 	# Create $PREFIX for current run
 	testenvcli init \
 	    $PREFIX	\
-	    $VIRT_CONFIG \
-	    --template-repo=$TEMPLATE_REPO
+	    $VIRT_CONFIG
 	echo '[INIT_OK] Initialized successfully, need cleanup later'
 
 	# Build RPMs
 	cd $PREFIX
 	testenvcli ovirt reposetup \
+	    --reposync-yum-config=$REPOSYNC_YUM_CONFIG \
 	    --engine-dir=$ENGINE_PATH \
 	    --vdsm-dir=$VDSM_PATH
 
