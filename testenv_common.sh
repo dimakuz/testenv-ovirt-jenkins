@@ -47,4 +47,5 @@ testenv_run () {
 	testenvcli ovirt runtest $OVIRT_CONTRIB/test_scenarios/bootstrap.py
 	testenvcli ovirt runtest $OVIRT_CONTRIB/test_scenarios/create_clean_snapshot.py
 	testenvcli ovirt runtest $OVIRT_CONTRIB/test_scenarios/basic_sanity.py
+	testenvcli ovirt collect --output $PREFIX/test_logs/final_logs
 }
